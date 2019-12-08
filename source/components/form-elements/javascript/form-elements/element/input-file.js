@@ -1,3 +1,5 @@
+
+
 const FILE_LABEL_HOOK = '[js-hook-file-label]';
 
 class CustomFile {

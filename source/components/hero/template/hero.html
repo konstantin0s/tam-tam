@@ -1,5 +1,8 @@
 {% from 'video.html' import video  %}
 {% from 'button.html' import button %}
+{% import 'form-elements.html' as form %}
+{% from 'modal.html' import modal  %}
+{% from 'form-elements/input.html' import input as inputElement %}
 
 <div class="c-hero">
   {{ video({
@@ -7,7 +10,7 @@
       id: '1',
       platform: 'native',
       title: 'Dept agency Introduction',
-      description: 'Introduction Video',
+      descriptn: 'Introduction Video',
       thumbnail: 'https://www.deptagency.com/wp-content/uploads/fly-images/114213/Dept_Berlin_Office-19-1280x720-c.jpg',
       controls: 0,
       playsinline: 1,
@@ -68,18 +71,103 @@
       ]
   }) }}
 
+
+
   <div class="o-container">
     <div class="hero__content">
-      <h1 class="hero__title u-margin-bottom--sm">We are going to create: <br/>A modal with a newsletter form!!</h1>
-      <p class="hero__subtitle">Let's get started!</p>
+        <div id="message" class="hide-msg"><!--display after submit form -->
+
+        </div>
+      <!-- <h1 class="hero__title u-margin-bottom--sm">We are going to create: <br/>A modal with a newsletter form!!</h1>
+      <p class="hero__subtitle">Let's get started!</p> -->
     </div>
 
     {{ button( {
-      class: 'hero__cta',
-      label: 'Subscribe to newsletter',
-      url: '#',
-      variant: 'secondary',
-      icon: 'chevron-right'
-    } ) }}
-  </div>
+        class: 'hero__cta',
+        id: 'subscriber',
+        label: 'Subscribe to newsletter',
+        controls: 'modal-custom',
+        url: '#',
+        variant: 'secondary',
+        icon: 'chevron-right'
+      } ) }}
+      
+      
+    {% call modal({
+        id : 'modal-custom',
+        size                : 'string',
+        mobileOnly          : 'false',
+        autoFocus           : 'true',
+        closeAllOthers      : 'false',
+        noBodyClass         : 'false',
+        closeAllOthers      : 'false',
+        noClose             : 'false',
+        keepScrollPosition  : 'false'
+    }) %}
+    
+
+  {% call form.form({
+     id: 'formapi',
+     method: 'post',
+     name: 'contactForm'
+    }) %} 
+
+ <div class="form-group">
+<div class="row">
+        {{ inputElement( {
+        type: 'email',
+        id: 'email',
+        name: 'email',
+        required: 'required',
+        placeholder: 'Enter Email'
+      } ) }}
+      <div class="error" id="emailErr"></div>
 </div>
+
+<div id="showInput">
+    <div class="row">
+        {{ inputElement( {
+            type: 'text',
+            id: 'first',
+            name: 'first',
+            required: 'required',
+            placeholder: 'First Name'
+          } ) }}
+          <div class="error" id="firstErr"></div>
+    </div>
+       <div class="row">
+        {{ inputElement( {
+            type: 'text',
+            id: 'last',
+            name: 'last',
+            required: 'required',
+            placeholder: 'Last Name'
+          } ) }}
+          <div class="error" id="lastErr"></div>
+       </div>
+
+       <div class="row">
+        <button id="submitBtn" class="posting" type="submit">Submit</buttom>
+     </div>
+     
+</div>
+
+
+
+ </div>
+
+
+{% endcall %} 
+
+    
+     <button class="close-modal" 
+     type="button" js-hook-button-modal-close aria-label="Close modalbox">
+        X
+    </button>
+    {% endcall %} 
+
+
+  </div>
+
+</div>
+

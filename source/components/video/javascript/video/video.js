@@ -116,7 +116,7 @@ class Video {
 function getVideos(platforms) {
   return VIDEOS.filter(video =>
     Object.prototype.hasOwnProperty.call(platforms, video.dataset.videoPlatform) &&
-    !video._videoIsInitialised
+      !video._videoIsInitialised
       ? video
       : false,
   )

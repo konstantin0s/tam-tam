@@ -2,11 +2,14 @@ import { body, html } from '@utilities/dom-elements'
 import Events from '@utilities/events'
 import ScreenDimensions from '@utilities/screen-dimensions'
 import setTabIndexOfChildren from '@utilities/set-tabindex-of-children'
+import '@utilities/focus-trap'
+
 
 const MODAL_HOOK = '[js-hook-modal]'
 const MODAL_CLOSE_HOOK = '[js-hook-button-modal-close]'
 const MODAL_VISIBLE_CLASS = 'modal--is-showing'
 const MODAL_HTML_CLASS = 'is--modal-open'
+
 
 class Modal {
   constructor() {
@@ -19,6 +22,23 @@ class Modal {
     modals.forEach(modal => this.setupModalRegistry(modal))
 
     this.bindEvents()
+  }
+
+
+  //Change Video player based on modal open/closed.
+  pauseVideo() {
+    var playVideo = document.querySelector('video')
+    console.log(playVideo.paused)
+
+    playVideo.pause()
+  }
+
+  playVideo() {
+    var playVideo = document.querySelector('video')
+    console.log(playVideo.paused)
+    if (playVideo.paused) {
+      playVideo.play()
+    }
   }
 
   /**
@@ -63,15 +83,17 @@ class Modal {
     el._modalIsInitialised = true
   }
 
+
   /**
    * Bind all general events
    */
   bindEvents() {
     Events.$on('modal::close', (event, data) => this.closeModal(data))
     Events.$on('modal::open', (event, data) => this.openModal(data))
-
+    Events.$trigger('modal::bind', { data: { hook: '#modal-custom' } })
     Events.$on('modal::bind', (event, data) => this.customBind(data))
   }
+
 
   /**
    * Bind all modal specific events
@@ -83,9 +105,11 @@ class Modal {
     triggerBtn.forEach(triggerEl =>
       triggerEl.addEventListener('click', () => {
         if (el.modalIsOpen) {
+          Events.$trigger('modal::bind', { data: { hook: '#modal-custom' } })
           Events.$trigger('modal::close', { data: { id } })
           Events.$trigger(`modal[${id}]::close`, { data: { id } })
         } else {
+          Events.$trigger('modal::bind', { data: { hook: '#modal-custom' } })
           Events.$trigger('modal::open', { data: { id } })
           Events.$trigger(`modal[${id}]::open`, { data: { id } })
         }
@@ -97,6 +121,7 @@ class Modal {
 
     closeBtn.forEach(el =>
       el.addEventListener('click', () => {
+        Events.$trigger('modal::bind', { data: { hook: '#modal-custom' } })
         Events.$trigger('modal::close', { data: { id } })
         Events.$trigger(`modal[${id}]::close`, { data: { id } })
       }),
@@ -105,6 +130,7 @@ class Modal {
     // Close on ESCAPE_KEY
     document.addEventListener('keyup', event => {
       if (event.keyCode === 27) {
+
         Events.$trigger('modal::close')
         Events.$trigger(`modal[${id}]::close`, { data: { id } })
       }
@@ -142,7 +168,9 @@ class Modal {
 
     // Add modal open class to html element if noBodyClass is false
     if (!noBodyClass) html.classList.add(MODAL_HTML_CLASS)
-
+    if (MODAL_HTML_CLASS) {
+      this.pauseVideo()
+    }
     // Add tabindex and add visible class
     modal.el.tabIndex = 0
     setTabIndexOfChildren(modal.el, 0)
@@ -168,6 +196,7 @@ class Modal {
       for (const modalIndex of Object.keys(this.registeredModals)) {
         this.closeModal({ id: this.registeredModals[modalIndex].id })
         Events.$trigger('focustrap::deactivate')
+
       }
       return
     }
@@ -182,6 +211,10 @@ class Modal {
 
     // Remove modal open class off html element if noBodyClass is false
     if (!noBodyClass) html.classList.remove(MODAL_HTML_CLASS)
+    //add play video here
+    this.playVideo()
+
+
 
     const keepScrollPosition = modal.el.dataset.modalKeepScrollPosition === 'true'
 
