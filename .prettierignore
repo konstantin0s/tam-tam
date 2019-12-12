@@ -3,5 +3,6 @@ package.json
 package-lock.json
 .eslintrc.js
 .eslintignore
-node_modules
+node_modules/*
+bin
 tamtam-frontend-builder

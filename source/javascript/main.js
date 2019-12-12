@@ -45,6 +45,20 @@ function displayForm() {
 
 displayForm()
 
+const shakeTime = 100 // Shake Transition Time
+//shake it when it's wrong input
+const modalContainer = document.querySelector('#modal-custom')
+function transform(x, y) {
+  modalContainer.style.transform = `translate(${x}px, ${y}px)`
+}
+
+function repeatShake() {
+  for (let i = 0; i < 6; i++) {
+    setTimeout(transform, shakeTime * i, ((i % 2) * 2 - 1) * 20, 0)
+    setTimeout(transform, shakeTime * 6, 0, 0)
+  }
+}
+
 //form Area
 window.onload = function() {
   // Defining a function to display error message
@@ -89,6 +103,8 @@ window.onload = function() {
         var regex = /^\S+@\S+\.\S+$/
         if (regex.test(emailForm) === false || emailForm.length < 6) {
           printError('emailErr', 'Please enter a valid email address')
+          repeatShake()
+    
         } else {
           printError('emailErr', '')
           emailErr = false
@@ -114,6 +130,7 @@ window.onload = function() {
     checkEmail()
     checkFirstName()
     checkLastName()
+    transform()
 
     // Prevent the form from being submitted if there are any errors
     if ((firstErr || emailErr || lastErr) === true) {

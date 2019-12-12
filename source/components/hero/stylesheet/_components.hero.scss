@@ -76,6 +76,7 @@ body {
   .modal__container {
     overflow: hidden;
     width: 60%;
+    transition: transform 0.1s ease-in-out;
 
     .modal__content {
       text-align: center;
