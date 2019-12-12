@@ -29,10 +29,10 @@ VideoLoader.then(([Platforms, Video]) => {
   })
 }).catch(() => {})
 
-function hideForm() {
-  var showInput = document.getElementById('showInput')
-  showInput.style.opacity = '0'
-}
+// function hideForm() {
+//   var showInput = document.getElementById('showInput')
+//   showInput.style.opacity = '0'
+// }
 
 function displayForm() {
   const email = document.getElementById('email')
@@ -43,7 +43,7 @@ function displayForm() {
   })
 }
 
-displayForm()
+// displayForm()
 
 const shakeTime = 100 // Shake Transition Time
 //shake it when it's wrong input
@@ -61,6 +61,16 @@ function repeatShake() {
 
 //form Area
 window.onload = function() {
+  function displayForm() {
+    const email = document.getElementById('email')
+    email.addEventListener('keyup', function() {
+      setTimeout(function() {
+        var showInput = document.getElementById('showInput')
+        showInput.style.opacity = '1'
+      }, 200)
+    })
+  }
+
   // Defining a function to display error message
   function printError(elemId, hintMsg) {
     document.getElementById(elemId).innerHTML = hintMsg
@@ -104,8 +114,8 @@ window.onload = function() {
         if (regex.test(emailForm) === false || emailForm.length < 6) {
           printError('emailErr', 'Please enter a valid email address')
           repeatShake()
-    
         } else {
+          displayForm()
           printError('emailErr', '')
           emailErr = false
         }

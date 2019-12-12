@@ -23,6 +23,47 @@ body {
   }
 }
 
+.left__icon {
+  color: #000000;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  z-index: 100;
+  top: 140px;
+  right: 16%;
+  svg {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    height: 20px;
+    width: 16px;
+    &:hover {
+      color: #ff3;
+    }
+  }
+}
+
+.right__icon {
+  color: #ffffff;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  z-index: 100;
+  top: 40px;
+  right: -15%;
+  float: right;
+  svg {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    height: 20px;
+    width: 16px;
+    &:hover {
+      color: #ff3;
+    }
+  }
+}
+
 .show-msg {
   position: absolute;
   width: 290px;
@@ -104,8 +145,10 @@ body {
           top: 20px;
           transform: translate(-50%, -50%);
 
-          .showInput {
-            transition: opacity 2s ease-in;
+          #showInput {
+            // transition: opacity 2s ease-in;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
           }
 
           .error {
@@ -142,6 +185,7 @@ body {
             height: 40px;
             border-radius: 5px;
             color: #000000;
+            border: none;
           }
 
           input[type='text']:focus,
