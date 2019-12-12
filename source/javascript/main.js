@@ -53,6 +53,7 @@ var submitBtn = document.getElementById('submitBtn')
 
 function displayForm() {
   email.style.opacity = '0'
+  document.querySelector('.modal__content').style.height = '420px'
   setTimeout(function() {
     showInput.style.opacity = '1'
     prevButton.style.opacity = '1'
@@ -65,11 +66,14 @@ function hideForm() {
   nextButton.style.opacity = '1'
   email.style.opacity = '1'
   prevButton.style.opacity = '0'
+  nextButton.style.top = '-156px'
+  document.querySelector('.modal__content').style.height = '200px'
 }
 
 function showEmail() {
   document.getElementById('first').value = ''
   document.getElementById('last').value = ''
+  document.querySelector('.modal__content').style.height = '200px'
   showInput.style.opacity = '0'
   email.style.opacity = '1'
   prevButton.style.opacity = '0'
@@ -174,8 +178,6 @@ function validateForm(e) {
       setTimeout(function() {
         modalIsShowing.classList.remove('modal--is-showing')
       }, 600)
-
-      // hideForm()
     }
   }
 }

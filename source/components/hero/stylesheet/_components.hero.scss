@@ -29,7 +29,7 @@ body {
   width: 100px;
   height: 100px;
   z-index: 100;
-  top: 40px;
+  top: 36px;
   opacity: 0;
   svg {
     cursor: pointer;
@@ -38,22 +38,21 @@ body {
     height: 20px;
     width: 16px;
     &:hover {
-      color: #ff3;
-      left: 10px;
+      color: #da4567;
+      margin-right: 10px;
     }
   }
 }
 
 .right__icon {
-  color: #000000;
-  position: absolute;
+  // color: #000000;
+  position: relative;
   width: 100px;
   height: 100px;
   z-index: 100;
-  // opacity: 1;
-  top: 40px;
-  right: -2%;
-  float: right;
+  top: 36px;
+  left: 82%;
+  opacity: 1;
   svg {
     cursor: pointer;
     font-size: 16px;
@@ -61,8 +60,8 @@ body {
     height: 20px;
     width: 16px;
     &:hover {
-      color: #ff3;
-      right: 10px;
+      fill: #da4567;
+      margin-left: 10px;
     }
   }
 }
@@ -120,7 +119,7 @@ body {
   .modal__container {
     overflow: hidden;
     width: 60%;
-    transition: transform 0.1s ease-in-out;
+    transition: transform 0.5s ease-in-out;
 
     .modal__content {
       text-align: center;
@@ -150,11 +149,10 @@ body {
           transform: translate(-50%, -50%);
 
           #showEmail {
-
+            transition: opacity 2s ease-in;
           }
 
           #showInput {
-            // transition: opacity 2s ease-in;
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
           }
