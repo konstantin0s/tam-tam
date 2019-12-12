@@ -113,7 +113,8 @@
     }) %} 
 
  <div class="form-group">
-<div class="row">
+<div id="showEmail">
+    <div class="row">
         {{ inputElement( {
         type: 'email',
         id: 'email',
@@ -122,6 +123,7 @@
         placeholder: 'Enter Email'
       } ) }}
       <div class="error" id="emailErr"></div>
+</div>
 </div>
 
 <div id="showInput">
@@ -152,11 +154,11 @@
      </div>
      
 </div>
-
-<div class="left__icon">{% svg "icons/chevron-left.svg" %}</div>
-        <div class="right__icon">{% svg "icons/chevron-right.svg" %}</div>
-
  </div>
+
+ <div class="left__icon">{% svg "icons/chevron-left.svg" %}</div>
+<div class="right__icon">{% svg "icons/chevron-right.svg" %}</div>
+
 
 
 {% endcall %} 
