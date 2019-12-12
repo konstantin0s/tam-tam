@@ -40,6 +40,7 @@ body {
     &:hover {
       color: #da4567;
       margin-right: 10px;
+      transform: scale(1.3);
     }
   }
 }
@@ -62,6 +63,7 @@ body {
     &:hover {
       fill: #da4567;
       margin-left: 10px;
+      transform: scale(1.3);
     }
   }
 }
@@ -262,9 +264,7 @@ body {
 
         &:hover {
           background: #ff0000;
-          padding: 5px;
-          text-align: center;
-          animation: bouncing 0.9s cubic-bezier(0.1, 0.25, 0.1, 1) 0s infinite alternate both;
+          transform: scale(1.2);
         }
       }
     }
