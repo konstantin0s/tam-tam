@@ -40,7 +40,7 @@
     <link rel="shortcut icon" href="/assets/images/favicons/favicon.ico">
     <meta name="msapplication-config" content="/assets/images/favicons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
-
+      
 </head>
 
 
@@ -70,6 +70,7 @@
 
     {% if project.debug %}
         <script async src="/assets/js/main.js"></script>
+  
     {% else %}
         <script type="module" async src="/assets/js/main-es.js"></script>
         <script nomodule async src="/assets/js/main.js"></script>

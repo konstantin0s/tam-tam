@@ -10,7 +10,6 @@ import '@utilities/in-view'
 import '@components/image'
 import VideoLoader from '@components/video/loader'
 import '@components/modal'
-
 import '@utilities/focus-trap'
 import '@components/form-elements'
 // moduleInit.sync('[js-hook-input-file]', CustomFile);
