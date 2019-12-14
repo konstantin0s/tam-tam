@@ -31,7 +31,7 @@ VideoLoader.then(([Platforms, Video]) => {
 
 const shakeTime = 100 // Shake Transition Time
 //shake it when it's wrong input
-const modalContainer = document.querySelector('#modal-custom')
+var modalContainer = document.querySelector('#modal-custom')
 function transform(x, y) {
   modalContainer.style.transform = `translate(${x}px, ${y}px)`
 }
@@ -45,11 +45,11 @@ function repeatShake() {
 
 //form Area
 
-var nextButton = document.querySelector('.right__icon')
-var prevButton = document.querySelector('.left__icon')
-var showInput = document.getElementById('showInput')
-var email = document.getElementById('email')
-var submitBtn = document.getElementById('submitBtn')
+const nextButton = document.querySelector('.right__icon')
+const prevButton = document.querySelector('.left__icon')
+const showInput = document.getElementById('showInput')
+const email = document.getElementById('email')
+const submitBtn = document.getElementById('submitBtn')
 
 function displayForm() {
   email.style.opacity = '0'
@@ -66,7 +66,7 @@ function hideForm() {
   nextButton.style.opacity = '1'
   email.style.opacity = '1'
   prevButton.style.opacity = '0'
-  nextButton.style.top = '-156px'
+  nextButton.style.top = '-105px'
   document.querySelector('.modal__content').style.height = '200px'
 }
 
@@ -94,21 +94,21 @@ function printError(elemId, hintMsg) {
 function validateForm(e) {
   e.preventDefault()
   // Retrieving the values of form elements
-  var emailForm = document.getElementById('email').value
-  var firstForm = document.getElementById('first').value
-  var lastForm = document.getElementById('last').value
+  let emailForm = document.getElementById('email').value
+  let firstForm = document.getElementById('first').value
+  let lastForm = document.getElementById('last').value
 
-  // Defining error variables with a default value
-  var emailErr,
-    firstErr,
-    lastErr = true
+  // Defining error constiables with a default value
+  let emailErr = true
+  let firstErr = true
+  let lastErr = true
 
   // Validate name
   function checkFirstName() {
     if (firstForm == '') {
       printError('firstErr ', 'Please enter your first name')
     } else {
-      var regex = /^[a-zA-Z\s]+$/
+      const regex = /^[a-zA-Z\s]+$/
       if (regex.test(firstForm) === false || firstForm.length < 3) {
         printError('firstErr', 'Please enter a valid name')
       } else {
@@ -124,11 +124,11 @@ function validateForm(e) {
       printError('emailErr', 'Please enter your email address')
     } else {
       // Regular expression for basic email validation
-      var regex = /^\S+@\S+\.\S+$/
+      const regex = /^\S+@\S+\.\S+$/
       if (regex.test(emailForm) === false || emailForm.length < 6) {
         printError('emailErr', 'Please enter a valid email address')
         repeatShake()
-        document.getElementById('emailForm').focus()
+        // document.getElementById('emailForm').focus()
         setTimeout(function() {
           printError('emailErr', '')
         }, 4000)
@@ -148,7 +148,7 @@ function validateForm(e) {
     if (lastForm == '') {
       printError('lastErr', 'Please enter your first name')
     } else {
-      var regex = /^[a-zA-Z\s]+$/
+      const regex = /^[a-zA-Z\s]+$/
       if (regex.test(lastForm) === false || lastForm.length < 3) {
         printError('lastErr', 'Please enter a valid name')
       } else {
@@ -183,7 +183,7 @@ function validateForm(e) {
 }
 
 //submit form
-var formOnSubmit = document.querySelector('.c-form')
+const formOnSubmit = document.querySelector('.c-form')
 formOnSubmit.addEventListener('submit', validateForm)
 
 nextButton.addEventListener('click', validateForm)
@@ -199,7 +199,7 @@ function check() {
     last: document.getElementById('last').value,
   }
 
-  var newData = JSON.stringify(data)
+  const newData = JSON.stringify(data)
   console.log(newData)
 
   const other_params = {
@@ -210,7 +210,7 @@ function check() {
   }
 
   function checkVideo() {
-    var playVideo = document.querySelector('video')
+    const playVideo = document.querySelector('video')
     if (playVideo.paused) {
       playVideo.play()
     }
