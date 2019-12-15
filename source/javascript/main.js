@@ -43,7 +43,7 @@ function repeatShake() {
 }
 
 //form Area
-
+const contactUs = document.querySelector('.contact_us')
 const nextButton = document.querySelector('.right__icon')
 const prevButton = document.querySelector('.left__icon')
 const showInput = document.getElementById('showInput')
@@ -55,12 +55,16 @@ function displayForm() {
   document.querySelector('.modal__content').style.height = '420px'
   setTimeout(function() {
     showInput.style.opacity = '1'
+    showInput.style.top = '50px'
     prevButton.style.opacity = '1'
     nextButton.style.opacity = '0'
+    contactUs.style.display = 'block'
+    prevButton.style.top = '-66px'
   }, 200)
 }
 
 function hideForm() {
+  contactUs.style.display = 'none'
   showInput.style.opacity = '0'
   nextButton.style.opacity = '1'
   email.style.opacity = '1'
@@ -70,6 +74,7 @@ function hideForm() {
 }
 
 function showEmail() {
+  contactUs.style.display = 'none'
   document.getElementById('first').value = ''
   document.getElementById('last').value = ''
   document.querySelector('.modal__content').style.height = '200px'
