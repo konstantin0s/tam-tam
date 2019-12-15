@@ -28,8 +28,8 @@ VideoLoader.then(([Platforms, Video]) => {
   })
 }).catch(() => {})
 
-
-// global variables
+var variablesModule = (function () {
+ // global variables
 const contactUs = document.querySelector('.contact_us')
 const nextButton = document.querySelector('.right__icon')
 const prevButton = document.querySelector('.left__icon')
@@ -43,68 +43,83 @@ const shakeTime = 100 // Shake Transition Time
 var modalContainer = document.querySelector('#modal-custom')
 const formOnSubmit = document.querySelector('.c-form')
 
+  return {
+    contactUs: contactUs,
+    nextButton: nextButton,
+    prevButton: prevButton,
+    showInput: showInput,
+    email: email,
+    first: first,
+    last: last,
+    submitBtn: submitBtn,
+    modalContent: modalContent,
+    shakeTime: shakeTime,
+    modalContainer: modalContainer,
+    formOnSubmit: formOnSubmit
+  };
+}());
+
 window.onload = function() {
-  modalContent.style.height = '200px'
+  variablesModule.modalContent.style.height = '200px'
 }
 
 function transform(x, y) {
-  modalContainer.style.transform = `translate(${x}px, ${y}px)`
+  variablesModule.modalContainer.style.transform = `translate(${x}px, ${y}px)`
 }
 
 //animation
 function repeatShake() {
   for (let i = 0; i < 6; i++) {
-    setTimeout(transform, shakeTime * i, ((i % 2) * 2 - 1) * 20, 0)
-    setTimeout(transform, shakeTime * 6, 0, 0)
+    setTimeout(transform, variablesModule.shakeTime * i, ((i % 2) * 2 - 1) * 20, 0)
+    setTimeout(transform, variablesModule.shakeTime * 6, 0, 0)
   }
 }
 
 //shows only the name part
 function displayNameForm() {
-  email.style.opacity = '0'
-  modalContent.style.height = '420px'
+  variablesModule.email.style.opacity = '0'
+  variablesModule.modalContent.style.height = '420px'
   setTimeout(function() {
-    showInput.style.opacity = '1'
-    showInput.style.top = '50px'
-    prevButton.style.opacity = '1'
-    nextButton.style.opacity = '0'
-    contactUs.style.display = 'block'
-    prevButton.style.top = '-66px'
+    variablesModule.showInput.style.opacity = '1'
+    variablesModule.showInput.style.top = '50px'
+    variablesModule.prevButton.style.opacity = '1'
+    variablesModule.nextButton.style.opacity = '0'
+    variablesModule.contactUs.style.display = 'block'
+    variablesModule.prevButton.style.top = '-66px'
   }, 200)
 }
 
 //shows only the email part
 function onlyEmail() {
-  contactUs.style.display = 'none'
-  showInput.style.opacity = '0'
-  nextButton.style.opacity = '1'
-  email.style.opacity = '1'
-  prevButton.style.opacity = '0'
-  nextButton.style.top = '-105px'
-  modalContent.style.height = '200px'
+  variablesModule.contactUs.style.display = 'none'
+  variablesModule.showInput.style.opacity = '0'
+  variablesModule.nextButton.style.opacity = '1'
+  variablesModule.email.style.opacity = '1'
+  variablesModule.prevButton.style.opacity = '0'
+  variablesModule.nextButton.style.top = '-105px'
+  variablesModule.modalContent.style.height = '200px'
 }
 
 //hide names form when email is showing
 function showEmail() {
   onlyEmail()
-  contactUs.style.display = 'none'
-  first.value = ''
-  last.value = ''
-  modalContent.style.height = '200px'
-  showInput.style.opacity = '0'
-  email.style.opacity = '1'
-  prevButton.style.opacity = '0'
-  nextButton.style.opacity = '1'
-  nextButton.addEventListener('click', validateForm)
+  variablesModule.contactUs.style.display = 'none'
+  variablesModule.first.value = ''
+  variablesModule.last.value = ''
+  variablesModule.modalContent.style.height = '200px'
+  variablesModule.showInput.style.opacity = '0'
+  variablesModule.email.style.opacity = '1'
+  variablesModule.prevButton.style.opacity = '0'
+  variablesModule.nextButton.style.opacity = '1'
+  variablesModule.nextButton.addEventListener('click', validateForm)
 }
 
 //events
-  prevButton.addEventListener('click', showEmail)
-  //submit form
-formOnSubmit.addEventListener('submit', validateForm)
+variablesModule.prevButton.addEventListener('click', showEmail)
+//submit form
+variablesModule.formOnSubmit.addEventListener('submit', validateForm)
 //switch events listener based on what's displayed
-nextButton.addEventListener('click', validateForm)
-
+variablesModule.nextButton.addEventListener('click', validateForm)
 
 // Defining a function to display error message
 function printError(elemId, hintMsg) {
@@ -115,9 +130,9 @@ function printError(elemId, hintMsg) {
 function validateForm(e) {
   e.preventDefault()
   // Retrieving the values of form elements
-  let emailForm = document.getElementById('email').value
-  let firstForm = document.getElementById('first').value
-  let lastForm = document.getElementById('last').value
+  let emailForm = variablesModule.email.value
+  let firstForm = variablesModule.first.value
+  let lastForm = variablesModule.last.value
 
   // Defining error constiables with a default value
   let emailErr = true
@@ -153,10 +168,10 @@ function validateForm(e) {
           printError('emailErr', '')
         }, 4000)
       } else {
-        nextButton.removeEventListener('click', validateForm)
-        nextButton.style.opacity = '0'
+        variablesModule.nextButton.removeEventListener('click', validateForm)
+        variablesModule.nextButton.style.opacity = '0'
         displayNameForm()
-        submitBtn.style.opacity = '1'
+        variablesModule.submitBtn.style.opacity = '1'
         printError('emailErr', '')
         emailErr = false
       }
@@ -189,8 +204,8 @@ function validateForm(e) {
   } else {
     displayNameForm()
     if (emailErr === false && firstErr === false && lastErr === false) {
-      nextButton.removeEventListener('click', validateForm)
-      nextButton.style.opacity = '0'
+      variablesModule.nextButton.removeEventListener('click', validateForm)
+      variablesModule.nextButton.style.opacity = '0'
       check()
       const modalIsShowing = document.querySelector('.c-modal')
       modalIsShowing.style.opacity = '0'
@@ -208,9 +223,9 @@ function check() {
 
   const url = 'https://jsonplaceholder.typicode.com/users'
   const data = {
-    email: document.getElementById('email').value,
-    first: document.getElementById('first').value,
-    last: document.getElementById('last').value,
+    email: variablesModule.email.value,
+    first: variablesModule.first.value,
+    last: variablesModule.last.value
   }
 
   const newData = JSON.stringify(data)
@@ -231,9 +246,9 @@ function check() {
   }
 
   function clearInput() {
-    document.getElementById('email').value = ''
-    document.getElementById('first').value = ''
-    document.getElementById('last').value = ''
+    variablesModule.email.value = ''
+    variablesModule.first.value = ''
+    variablesModule.last.value = ''
   }
 
   function displaySuccMsg() {
@@ -244,7 +259,7 @@ function check() {
     divMessage.classList.add('show-msg')
     onlyEmail()
     email.style.opacity = '1'
-    nextButton.addEventListener('click', validateForm)
+    variablesModule.nextButton.addEventListener('click', validateForm)
     divMessage.innerHTML = 'Bedankt voor uw aanmelding!🎉'
     setTimeout(function() {
       divMessage.classList.remove('show-msg')
