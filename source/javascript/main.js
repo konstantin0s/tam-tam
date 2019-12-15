@@ -28,13 +28,30 @@ VideoLoader.then(([Platforms, Video]) => {
   })
 }).catch(() => {})
 
+
+// global variables
+const contactUs = document.querySelector('.contact_us')
+const nextButton = document.querySelector('.right__icon')
+const prevButton = document.querySelector('.left__icon')
+const showInput = document.getElementById('showInput')
+const email = document.getElementById('email')
+const first = document.getElementById('first')
+const last = document.getElementById('last')
+const submitBtn = document.getElementById('submitBtn')
+const modalContent = document.querySelector('.modal__content')
 const shakeTime = 100 // Shake Transition Time
-//shake it when it's wrong input
 var modalContainer = document.querySelector('#modal-custom')
+const formOnSubmit = document.querySelector('.c-form')
+
+window.onload = function() {
+  modalContent.style.height = '200px'
+}
+
 function transform(x, y) {
   modalContainer.style.transform = `translate(${x}px, ${y}px)`
 }
 
+//animation
 function repeatShake() {
   for (let i = 0; i < 6; i++) {
     setTimeout(transform, shakeTime * i, ((i % 2) * 2 - 1) * 20, 0)
@@ -42,17 +59,10 @@ function repeatShake() {
   }
 }
 
-//form Area
-const contactUs = document.querySelector('.contact_us')
-const nextButton = document.querySelector('.right__icon')
-const prevButton = document.querySelector('.left__icon')
-const showInput = document.getElementById('showInput')
-const email = document.getElementById('email')
-const submitBtn = document.getElementById('submitBtn')
-
-function displayForm() {
+//shows only the name part
+function displayNameForm() {
   email.style.opacity = '0'
-  document.querySelector('.modal__content').style.height = '420px'
+  modalContent.style.height = '420px'
   setTimeout(function() {
     showInput.style.opacity = '1'
     showInput.style.top = '50px'
@@ -63,21 +73,24 @@ function displayForm() {
   }, 200)
 }
 
-function hideForm() {
+//shows only the email part
+function onlyEmail() {
   contactUs.style.display = 'none'
   showInput.style.opacity = '0'
   nextButton.style.opacity = '1'
   email.style.opacity = '1'
   prevButton.style.opacity = '0'
   nextButton.style.top = '-105px'
-  document.querySelector('.modal__content').style.height = '200px'
+  modalContent.style.height = '200px'
 }
 
+//hide names form when email is showing
 function showEmail() {
+  onlyEmail()
   contactUs.style.display = 'none'
-  document.getElementById('first').value = ''
-  document.getElementById('last').value = ''
-  document.querySelector('.modal__content').style.height = '200px'
+  first.value = ''
+  last.value = ''
+  modalContent.style.height = '200px'
   showInput.style.opacity = '0'
   email.style.opacity = '1'
   prevButton.style.opacity = '0'
@@ -85,9 +98,13 @@ function showEmail() {
   nextButton.addEventListener('click', validateForm)
 }
 
-prevButton.addEventListener('click', showEmail)
+//events
+  prevButton.addEventListener('click', showEmail)
+  //submit form
+formOnSubmit.addEventListener('submit', validateForm)
+//switch events listener based on what's displayed
+nextButton.addEventListener('click', validateForm)
 
-hideForm()
 
 // Defining a function to display error message
 function printError(elemId, hintMsg) {
@@ -132,14 +149,13 @@ function validateForm(e) {
       if (regex.test(emailForm) === false || emailForm.length < 6) {
         printError('emailErr', 'Please enter a valid email address')
         repeatShake()
-        // document.getElementById('emailForm').focus()
         setTimeout(function() {
           printError('emailErr', '')
         }, 4000)
       } else {
         nextButton.removeEventListener('click', validateForm)
         nextButton.style.opacity = '0'
-        displayForm()
+        displayNameForm()
         submitBtn.style.opacity = '1'
         printError('emailErr', '')
         emailErr = false
@@ -171,7 +187,7 @@ function validateForm(e) {
   if ((firstErr || emailErr || lastErr) === true) {
     return false
   } else {
-    displayForm()
+    displayNameForm()
     if (emailErr === false && firstErr === false && lastErr === false) {
       nextButton.removeEventListener('click', validateForm)
       nextButton.style.opacity = '0'
@@ -185,12 +201,6 @@ function validateForm(e) {
     }
   }
 }
-
-//submit form
-const formOnSubmit = document.querySelector('.c-form')
-formOnSubmit.addEventListener('submit', validateForm)
-
-nextButton.addEventListener('click', validateForm)
 
 // window.onload = function() {
 function check() {
@@ -229,28 +239,28 @@ function check() {
   function displaySuccMsg() {
     modalIsShowing.style.opacity = '1'
     checkVideo()
-    const div = document.getElementById('message')
-    div.classList.remove('hide-msg')
-    div.classList.add('show-msg')
-    hideForm()
+    const divMessage = document.getElementById('message')
+    divMessage.classList.remove('hide-msg')
+    divMessage.classList.add('show-msg')
+    onlyEmail()
     email.style.opacity = '1'
     nextButton.addEventListener('click', validateForm)
-    div.innerHTML = 'Bedankt voor uw aanmelding!🎉'
+    divMessage.innerHTML = 'Bedankt voor uw aanmelding!🎉'
     setTimeout(function() {
-      div.classList.remove('show-msg')
-      div.innerHTML = ''
+      divMessage.classList.remove('show-msg')
+      divMessage.innerHTML = ''
     }, 10000)
   }
 
   function displayError(output) {
     modalIsShowing.style.opacity = '1'
-    const div = document.getElementById('message')
-    div.classList.remove('hide-msg')
-    div.classList.add('error-msg')
-    div.innerHTML = 'Could not reach the API ' + output
+    const divMessage = document.getElementById('message')
+    divMessage.classList.remove('hide-msg')
+    divMessage.classList.add('error-msg')
+    divMessage.innerHTML = 'Could not reach the API ' + output
     setTimeout(function() {
-      div.classList.remove('error-msg')
-      div.innerHTML = ''
+      divMessage.classList.remove('error-msg')
+      divMessage.innerHTML = ''
     }, 10000)
   }
 
